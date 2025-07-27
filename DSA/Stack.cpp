@@ -1,61 +1,45 @@
-#include<iostream>
+#include <iostream>
+#include <stack>
+
 using namespace std;
 
-const int n_size = 20;
-int stack[n_size];
-int top = -1;
-
-void push(int data) {
-    if (top == n_size - 1) {
-        cout << "Stack is Full" << endl;
-    } else {
-        top++;
-        stack[top] = data;
-    }
-}
-
-void pop() {
-    if (top == -1) {
-        cout << "Stack is empty" << endl;
-    } else {
-        cout << "Popped element: " << stack[top] << endl;
-        top--;
-    }
-}
-
-void peek() {
-    if (top == -1) {
-        cout << "Stack is empty" << endl;
-    } else {
-        cout << "The top element is: " << stack[top] << endl;
-    }
-}
-
 int main() {
-    int n;
-    cout << "Enter the number of elements: ";
-    cin >> n;
+    // Stack declaration and initialization
+    stack<int> stk;
 
-    for (int i = 0; i < n; i++) {
-        int data;
-        cout << "Enter the data: ";
-        cin >> data;
-        push(data);
+    // Push elements
+    stk.push(10);                                   // Push element
+    stk.push(20);
+    stk.push(30);
+    stk.emplace(40);                                // Construct and push element
+
+    cout << "Stack after pushing 10, 20, 30, 40:\n";
+    stack<int> temp = stk;                     // Copy stack for display
+    cout << "  Elements (top to bottom): ";
+    while (!temp.empty()) {
+        cout << temp.top() << " ";
+        temp.pop();
     }
+    cout << "\n\n";
 
-    cout << "Elements of the stack:" << endl;
-    for (int i = top; i >= 0; i--) {
-        cout << "Element: " << stack[i] << endl;
-    }
+    // Element access
+    cout << "Element access:\n";
+    cout << "  Top element: " << stk.top() << "\n\n";
 
-    pop();
+    // Modifiers
+    stk.pop();                                      // Remove top element
+    cout << "After pop, top element: " << stk.top() << "\n";
+    stack<int> stk2;
+    stk2.push(100);
+    stk2.push(200);
+    stk.swap(stk2);                                 // Swap with another stack
+    cout << "After swap, stk top: " << stk.top() << "\n";
+    cout << "After swap, stk2 top: " << stk2.top() << "\n\n";
 
-    cout << "Elements after pop:" << endl;
-    for (int i = top; i >= 0; i--) {
-        cout << "Element: " << stack[i] << endl;
-    }
-
-    peek();
+    // Capacity
+    cout << "Capacity operations on stk:\n";
+    cout << "  Size: " << stk.size() << "\n";
+    cout << "  Empty: " << (stk.empty() ? "Yes" : "No") << "\n";
 
     return 0;
 }
